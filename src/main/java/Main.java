@@ -2,6 +2,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,7 +12,8 @@ import static javax.swing.text.html.CSS.getAttribute;
 
 
 public class Main {
-    public static void main(String[] args) {
+    @Test
+    public void testest(){
         System.setProperty("webdriver.chrome.driver", "D://Silenium Jars and drivers//Drivers//ChromeDrivers//chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://tempmail.plus/ru/#!");
@@ -38,15 +40,19 @@ public class Main {
         driver.findElement(By.xpath("/html/body/div[4]/div/form/div[2]/div/button")).click();
 
         //Проверить, что окно настроек закрылось (Используем Assert.assertTrue например)
-        Assert.assertFalse(!driver.findElement(By.xpath("/html/body/div[4]/div/form/div[2]/div/span")).getText().contains("Настройки"));
+        WebElement randomName = driver.findElement(By.id("pre_rand"));
+        Assertions.assertTrue(randomName.isDisplayed());
 
         //Проверить что видна надпись "В ожидании новых писем..."
-        Assert.assertTrue(driver.findElement(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div/span")).getText().contains("В ожидании новых писем..."));
+        Assertions.assertTrue(driver.getPageSource().contains("В ожидании новых писем..."));
+
         //Нажать кнопку "Написать".
-
         driver.findElement(By.id("compose")).click();
-        //Убедиться, что открылась форма для отправки письма
 
+        //Убедиться, что открылась форма для отправки письма
+        WebElement sendButton = driver.findElement(By.xpath("/html/body/div[3]/div/form[1]/div[5]/input"));
+        wait.until(ExpectedConditions.visibilityOf(sendButton));
+        Assertions.assertTrue(sendButton.isDisplayed());
 
         //и заполнить поля кому ("имя почтового ящика"),
         wait.until(ExpectedConditions.elementToBeClickable(By.
@@ -104,6 +110,7 @@ public class Main {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[7]/div/div/div/div/button[1]"))).click();
 
       //  Убедиться, что во входящих нет письма с темой "Re: Test"
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete")));
         Assertions.assertFalse(driver.getPageSource().contains("Re: Test"));
 
 
