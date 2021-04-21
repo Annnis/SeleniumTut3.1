@@ -58,10 +58,10 @@ public class Main {
         wait.until(ExpectedConditions.elementToBeClickable(By.
                 xpath("//*[@id=\"to\"]")));
         driver.findElement(By.xpath("//*[@id=\"to\"]")).sendKeys(nameOfEmail);
-        //тема ("Test"),
+        //тема ("Testss"),
         wait.until(ExpectedConditions.elementToBeClickable(By.
                 xpath("//*[@id=\"to\"]")));
-        driver.findElement(By.xpath("/html/body/div[3]/div/form[1]/div[2]/div[4]/input")).sendKeys("Test");
+        driver.findElement(By.xpath("/html/body/div[3]/div/form[1]/div[2]/div[4]/input")).sendKeys("Testss");
         // текст ("секретный адрес").
         wait.until(ExpectedConditions.elementToBeClickable(By.
                 xpath("//*[@id=\"to\"]")));
@@ -72,12 +72,12 @@ public class Main {
         //Дождаться появления нового письма от "имя почтового ящика" и кликнуть по новому письму.
         wait.until(ExpectedConditions.elementToBeClickable(By.
                 xpath("/html/body/div[8]/div[2]/div/div[1]/div[2]/div/div[1]/span"))).click();
-      //  В раскрывшемся письме проверить отправителя ("имя почтового ящика"), тему письма ("Test"), содержимое письма ("секретный адрес").
+      //  В раскрывшемся письме проверить отправителя ("имя почтового ящика"), тему письма ("Testss"), содержимое письма ("секретный адрес").
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[8]/div[2]/div/div[2]/button"))); // 3.13
         String senderName = driver.findElement(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div[2]/div[1]/div[1]/span")).getAttribute("textContent");
         Assertions.assertEquals(nameOfEmail, senderName);
         String themeOfEmail = driver.findElement(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div[2]/div[2]")).getAttribute("textContent");
-        Assertions.assertEquals("Test", themeOfEmail);
+        Assertions.assertEquals("Testss", themeOfEmail);
         String textOfEmail = driver.findElement(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div[2]/div[3]")).getAttribute("textContent");
         Assertions.assertEquals(secretAddress, textOfEmail);
 
@@ -95,10 +95,10 @@ public class Main {
        driver.findElement(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div[1]/button[1]")).click();
 
 
-        //Убедиться, что пришло новое письмо с темой "Re: Test". Раскрыть его, кликнув по нему.String resendEmail = "Re: " + themeOfEmail; // 3.16
+        //Убедиться, что пришло новое письмо с темой "Re: Testss". Раскрыть его, кликнув по нему.String resendEmail = "Re: " + themeOfEmail; // 3.16
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[8]/div[2]/div/div[2]/button[2]")));
         String toCheckRe = driver.findElement(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div[2]/div/div[3]/span")).getAttribute("textContent");
-        Assertions.assertEquals("Re: Test", toCheckRe);
+        Assertions.assertEquals("Re: Testss", toCheckRe);
         driver.findElement(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div[2]/div/div[3]")).click();
         //Убедиться, что в теле письма содержится "Test2"
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div[2]/div[3]")));  // 3.17
@@ -109,9 +109,9 @@ public class Main {
         driver.findElement(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div[1]/button[2]")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[7]/div/div/div/div/button[1]"))).click();
 
-      //  Убедиться, что во входящих нет письма с темой "Re: Test"
+      //  Убедиться, что во входящих нет письма с темой "Re: Testss"
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete")));
-        Assertions.assertFalse(driver.getPageSource().contains("Re: Test"));
+        Assertions.assertFalse(driver.getPageSource().contains("Re: Testss"));
 
 
     }
